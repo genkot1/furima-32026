@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column           | Type   | Options     |
-| ---------------- | ------ | ----------- |
-| email            | string | null: false |
-| password         | string | null: false |
-| nickname         | string | null: false |
-| kanji_last_name  | string | null: false |
-| kanji_first_name | string | null: false |
-| kana_last_name   | string | null: false |
-| kana_first_name  | string | null: false |
-| birthday         | date   | null: false |
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| nickname           | string | null: false |
+| kanji_last_name    | string | null: false |
+| kanji_first_name   | string | null: false |
+| kana_last_name     | string | null: false |
+| kana_first_name    | string | null: false |
+| birthday           | date   | null: false |
 
 ### Association
 
@@ -25,11 +25,11 @@
 | name           | string     | null: false                    |
 | image          |            |                                |  <!-- Active Storageで実装 -->
 | description    | text       | null: false                    |
-| category       | set        | null: false                    |
-| condition      | set        | null: false                    |
+| category       | integer    | null: false                    |
+| condition      | integer    | null: false                    |
 | price          | integer    | null: false                    |
-| shipment_place | set        | null: false                    |
-| duration       | integer    | null: false                    |
+| shipment_place | integer    | null: false                    |  <!-- 発送元の地域 -->
+| duration       | integer    | null: false                    |  <!-- 発送までの日数 -->
 | user           | references | null: false, foreign_key: true |
 
 ### Association
@@ -41,19 +41,27 @@
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
-| card_number     | integer    | null: false                    |
-| expiration_date | date       | null: false                    |
-| security_code   | integer    | null: false                    |
-| postal_code     | integer    | null: false                    |
-| prefecture      | set        | null: false                    |
-| city            | string     | null: false                    |
-| address         | string     | null: false                    |
-| building        | string     | null: false                    |
-| phone_number    | integer    | null: false                    |
-| purchased       | boolean    | null: false                    |
 | user            | references | null: false, foreign_key: true |
+| item            | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
+- has_one    :shipping_addresses
+
+## shipping_addresses テーブル
+
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| postal_code     | string     | null: false                    |
+| prefecture      | integer    | null: false                    |
+| city            | string     | null: false                    |
+| address         | string     | null: false                    |
+| building        | string     |                                |
+| phone_number    | string     | null: false                    |
+| purchase        | references | null: false, foreign_key: true |  <!-- purchasesテーブルの紐付け -->
+
+### Association
+
+- belongs_to :purchase
