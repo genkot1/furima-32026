@@ -20,17 +20,18 @@
 
 ## items テーブル
 
-| Column         | Type       | Options                        |
-| -------------- | ---------- | ------------------------------ |
-| name           | string     | null: false                    |
-| image          |            |                                |  <!-- Active Storageで実装 -->
-| description    | text       | null: false                    |
-| category       | integer    | null: false                    |
-| condition      | integer    | null: false                    |
-| price          | integer    | null: false                    |
-| shipment_place | integer    | null: false                    |  <!-- 発送元の地域 -->
-| duration       | integer    | null: false                    |  <!-- 発送までの日数 -->
-| user           | references | null: false, foreign_key: true |
+| Column            | Type       | Options                        |
+| ----------------- | ---------- | ------------------------------ |
+| name              | string     | null: false                    |
+| image             |            |                                |  <!-- Active Storageで実装 -->
+| description       | text       | null: false                    |
+| shipping_fee_id   | integer    | null: false                    |  <!-- 配送料負担 -->
+| category_id       | integer    | null: false                    |
+| condition_id      | integer    | null: false                    |
+| price             | integer    | null: false                    |
+| shipment_place_id | integer    | null: false                    |  <!-- 発送元の地域 -->
+| duration_id       | integer    | null: false                    |  <!-- 発送までの日数 -->
+| user              | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -48,14 +49,14 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one    :shipping_addresses
+- has_one    :shipping_address
 
 ## shipping_addresses テーブル
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
 | postal_code     | string     | null: false                    |
-| prefecture      | integer    | null: false                    |
+| prefecture_id   | integer    | null: false                    |
 | city            | string     | null: false                    |
 | address         | string     | null: false                    |
 | building        | string     |                                |
