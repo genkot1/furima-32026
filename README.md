@@ -23,13 +23,12 @@
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
 | name              | string     | null: false                    |
-| image             |            |                                |  <!-- Active Storageで実装 -->
 | description       | text       | null: false                    |
 | shipping_fee_id   | integer    | null: false                    |  <!-- 配送料負担 -->
 | category_id       | integer    | null: false                    |
 | condition_id      | integer    | null: false                    |
 | price             | integer    | null: false                    |
-| shipment_place_id | integer    | null: false                    |  <!-- 発送元の地域 -->
+| prefecture_id     | integer    | null: false                    |  <!-- 発送元の地域 -->
 | duration_id       | integer    | null: false                    |  <!-- 発送までの日数 -->
 | user              | references | null: false, foreign_key: true |
 
