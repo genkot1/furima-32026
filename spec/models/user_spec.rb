@@ -24,11 +24,11 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
       end
       it "kana_last_nameが全角カタカナで登録できる" do
-        @user.kana_last_name = "カナ"
+        @user.kana_last_name = "カンジカナカナ"
         expect(@user).to be_valid
       end
       it "kana_first_nameが全角カタカナで登録できる" do
-        @user.kana_first_name = "カタカナ"
+        @user.kana_first_name = "カンジカナカナ"
         expect(@user).to be_valid
       end
     end
