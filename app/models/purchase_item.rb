@@ -1,16 +1,17 @@
 class PurchaseItem
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number
+  attr_accessor :email, :nickname, :password, :kanji_last_name, :kanji_first_name, :kana_last_name, :kana_first_name, :user_id, :item_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number
 
   with_options presence: true do
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "Input correctly" }
     validates :city
     validates :house_number
-    validates :phone_number, numericality: { only_integer: true }, length: ( in: 10..11 )
+    validates :phone_number, length: {minimum: 10, maximum: 11, message: "Input only number" }
   end
-  validates :prefecture_id, numericality: { other_than: 0, message: "Select"}
+  validates :prefecture_id, numericality: { other_than: 0, message: "Select" }
 
   def save
-    PurchaseItem.create(postal_code: postal_code, prefecture: prefecture, city: city, house_number: house_number, building_name: building_name, user_id: current_user.id)
+    order = Order.create(user_id: user_id, item_id: item_id)
+    ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, house_number: house_number, building_name: building_name, phone_number: phone_number, order_id: order.id)
   end
 end
