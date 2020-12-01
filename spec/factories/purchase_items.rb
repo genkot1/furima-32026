@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :purchase_item do
+    token {"tok_abcdefghijk00000000000000000"}
     user_id {10}
     item_id {15}
     postal_code {'123-4567'}
