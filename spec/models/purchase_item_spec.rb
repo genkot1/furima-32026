@@ -10,6 +10,10 @@ RSpec.describe PurchaseItem, type: :model do
       it 'すべての情報が正しく入力されていると商品が購入できる' do
         expect(@purchase_item).to be_valid
       end
+      it '建物名が抜けていても購入できる' do
+        @purchase_item.building_name = ""
+        expect(@purchase_item).to be_valid
+      end
     end
     context '商品購入がうまくいかないとき' do
       it 'tokenが空では購入できない' do
@@ -27,7 +31,7 @@ RSpec.describe PurchaseItem, type: :model do
         @purchase_item.valid?
         expect(@purchase_item.errors.full_messages).to include("Postal code Input correctly")
       end
-      it '都道府県が選択されていなければ購入できない' do
+      it 'prefecture_idが0以外でないと購入できない' do
         @purchase_item.prefecture_id = 0
         @purchase_item.valid?
         expect(@purchase_item.errors.full_messages).to include("Prefecture Select")
@@ -47,10 +51,15 @@ RSpec.describe PurchaseItem, type: :model do
         @purchase_item.valid?
         expect(@purchase_item.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号にハイフンが入っていると購入できない' do
+      it 'phone_numberが数字のみでないと購入できない' do
         @purchase_item.phone_number = "03-12345678"
         @purchase_item.valid?
         expect(@purchase_item.errors.full_messages).to include("Phone number Input only number")
+      end
+      it 'phone_numberが11桁以内でないと購入できない' do
+        @purchase_item.phone_number = "0901234567890"
+        @purchase_item.valid?
+        expect(@purchase_item.errors.full_messages).to include("Phone number Input correctly")
       end
     end
   end

@@ -5,7 +5,6 @@ class OrdersController < ApplicationController
   before_action :move_to_index_after_purchased, only: [:index, :create]
 
   def index
-    @order = Order.new
     @purchase_item = PurchaseItem.new
   end
 
