@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :duration
 
-  has_one :purchase
+  has_one :order
   belongs_to :user
   has_one_attached :image
 
